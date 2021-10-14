@@ -1,5 +1,12 @@
 import React from "react";
-import { Platform, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import HomeScreen from "./screens/HomeScreen";
@@ -15,7 +22,11 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <SafeAreaProvider>
-          <View style={styles.container}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "android" ? "height" : "padding"}
+            style={styles.container}
+            keyboardVerticalOffset={Platform.OS === "android" ? 0 : -64}
+          >
             <Stack.Navigator>
               <Stack.Screen
                 name="HomeScreen"
@@ -39,7 +50,7 @@ export default function App() {
                 }}
               />
             </Stack.Navigator>
-          </View>
+          </KeyboardAvoidingView>
         </SafeAreaProvider>
       </NavigationContainer>
     </Provider>
